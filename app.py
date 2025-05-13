@@ -8,6 +8,7 @@ import asyncio
 import os
 from dotenv import load_dotenv
 import nest_asyncio
+from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize environment and configurations
 load_dotenv()
@@ -15,6 +16,14 @@ nest_asyncio.apply()
 MCP_URL = "https://mcpai.gleeze.com/sse"
 
 app = FastAPI(title="Healthcare Finder API", description="API for processing healthcare-related queries")
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Restrict to frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Explicitly list allowed methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 class QueryRequest(BaseModel):
     text: str
