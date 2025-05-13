@@ -1,0 +1,9 @@
+fastapi
+pydantic
+httpx
+uvicorn
+agno
+groq
+requests
+nest_asyncio
+mcp
