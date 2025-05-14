@@ -35,7 +35,7 @@ async def create_healthcare_team():
             role="You help users find doctors, hospitals, and medicines using zipcode and names, or answer general questions using your knowledge.",
             model=Groq(id="llama-3.1-8b-instant", api_key=os.getenv('GROQ_API_KEY')),
             tools=[mcp_tools],
-            show_tool_calls=True,
+            show_tool_calls=False,
             markdown=True,
             instructions=[
                 "If the user provides only a 5-digit zipcode (e.g., '33601' or 'My zipcode is 33601') without mentioning doctors, hospitals, or medicines, **exclusively** call the `get_county_info` tool with the zipcode and return only the county name. Do not call any other tools or provide additional information.",
@@ -70,7 +70,7 @@ async def create_healthcare_team():
             mode="auto",
             model=Groq(id="llama-3.1-8b-instant", api_key=os.getenv('GROQ_API_KEY')),
             members=[healthcare_agent, general_knowledge_agent],
-            description="Helps users search doctors, hospitals, and medicines, or answers general questions on various topics.",
+            description="Helps users search doctors, hospitals, and medicines, or answers general questions on various topics.Dont give any internal message like which agent give information and all dont show that message.",
             show_members_responses=False
         )
         return healthcare_team
